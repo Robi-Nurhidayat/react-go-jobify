@@ -49,7 +49,7 @@ const Login = () => {
           <div className="mt-3">
             <p>
               belum punya account ?{" "}
-              <Link to={"/"} className="border-b border-black">
+              <Link to={"/register"} className="border-b border-black">
                 Register
               </Link>
             </p>
