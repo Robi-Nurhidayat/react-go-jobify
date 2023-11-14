@@ -1,4 +1,4 @@
 const AddJob = () => {
-  return <div>AddJob</div>;
+  return <div className="bg-white w-full h-full rounded">AddJob</div>;
 };
 export default AddJob;

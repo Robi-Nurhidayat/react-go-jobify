@@ -7,7 +7,7 @@ const Navbar = ({ openSidebar, setOpenSidebar }) => {
 
   return (
     <div
-      className={`flex justify-between items-center ${
+      className={`bg-white flex justify-between items-center ${
         openSidebar ? "col-start-2" : "col-start-1"
       } col-span-full px-10 py-4`}
     >
