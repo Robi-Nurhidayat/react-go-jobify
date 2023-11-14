@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, redirect, useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [values, setValues] = useState({
     email: "",
     password: "",
@@ -9,7 +10,7 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    alert("test");
+    navigate("/dashboard");
   };
   return (
     <div className="bg-blue-500 h-screen w-full flex justify-center items-center">
