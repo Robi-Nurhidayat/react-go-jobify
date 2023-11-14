@@ -3,6 +3,8 @@ import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import Landing from "./pages/landing/Landing";
 import Dashboard from "./pages/dashboard/Dashboard";
+import AddJob from "./components/job/AddJob";
+import EditJob from "./components/job/EditJob";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -21,7 +23,16 @@ const App = () => {
     {
       path: "/dashboard",
       element: <Dashboard />,
-      children: [],
+      children: [
+        {
+          path: "add-job",
+          element: <AddJob />,
+        },
+        {
+          path: "edit-job",
+          element: <EditJob />,
+        },
+      ],
     },
   ]);
   return <RouterProvider router={router} />;
