@@ -1,10 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const Dashboard = () => {
+  const navigate = useNavigate();
   const [openSidebar, setOpenSidebar] = useState(true);
+
+  useEffect(() => {
+    const token = Cookies.get("token");
+    if (!token) {
+      navigate("/login");
+    }
+  }, []);
   return (
     <div className="grid grid-cols-12 grid-rows-[auto,1fr] h-screen ">
       <Navbar openSidebar={openSidebar} setOpenSidebar={setOpenSidebar} />

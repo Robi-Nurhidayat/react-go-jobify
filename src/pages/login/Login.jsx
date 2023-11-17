@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { RiEyeCloseLine } from "react-icons/ri";
 import { MdRemoveRedEye } from "react-icons/md";
 import axios from "axios";
+import Cookies from "js-cookie";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -16,18 +18,30 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    alert(JSON.stringify(values));
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/api/v1/user/login",
+        {
+          email: values.email,
+          password: values.password,
+        }
+      );
 
-    const response = await axios.post(
-      "http://localhost:8080/api/v1/user/login",
-      {
-        email: values.email,
-        password: values.password,
-      }
-    );
-
-    console.log(response);
+      console.log(response);
+      Cookies.set("token", response.data.data.token);
+      setData(response.data.data);
+      toast.success(response.data.Meta.message);
+    } catch (error) {
+      toast.error("erffe");
+    }
   };
+
+  useEffect(() => {
+    const token = Cookies.get("token");
+    if (token) {
+      navigate("/dashboard");
+    }
+  }, [data]);
   return (
     <div className="bg-blue-500 h-screen w-full flex justify-center items-center">
       <div>
