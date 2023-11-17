@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { RiEyeCloseLine } from "react-icons/ri";
 import { MdRemoveRedEye } from "react-icons/md";
+import axios from "axios";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -10,10 +11,22 @@ const Login = () => {
     password: "",
   });
   const [show, setShow] = useState(false);
-  const handleSubmit = (e) => {
+  const [data, setData] = useState(null);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    navigate("/dashboard");
+    alert(JSON.stringify(values));
+
+    const response = await axios.post(
+      "http://localhost:8080/api/v1/user/login",
+      {
+        email: values.email,
+        password: values.password,
+      }
+    );
+
+    console.log(response);
   };
   return (
     <div className="bg-blue-500 h-screen w-full flex justify-center items-center">
