@@ -1,5 +1,7 @@
 import { useState } from "react";
-import { Link, redirect, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { RiEyeCloseLine } from "react-icons/ri";
+import { MdRemoveRedEye } from "react-icons/md";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -7,6 +9,7 @@ const Login = () => {
     email: "",
     password: "",
   });
+  const [show, setShow] = useState(false);
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -27,19 +30,33 @@ const Login = () => {
                 placeholder="Enter your email"
                 className="input input-bordered input-sm w-full max-w-lg"
                 id="email"
+                value={values.email}
+                onChange={(e) =>
+                  setValues({ ...values, email: e.target.value })
+                }
               />
             </div>
 
-            <div className="flex flex-col gap-y-1">
-              <label htmlFor="email" className="text-lg font-semibold">
+            <div className="flex flex-col gap-y-1 relative">
+              <label htmlFor="password" className="text-lg font-semibold">
                 password
               </label>
               <input
-                type="text"
+                type={show ? "text" : "password"}
                 placeholder="Enter your password"
                 className="input input-bordered input-sm w-full max-w-lg "
-                id="email"
+                id="password"
+                value={values.password}
+                onChange={(e) =>
+                  setValues({ ...values, password: e.target.value })
+                }
               />
+              <span
+                className="text-xl cursor-pointer absolute right-2 top-10"
+                onClick={() => setShow(!show)}
+              >
+                {show ? <MdRemoveRedEye /> : <RiEyeCloseLine />}
+              </span>
             </div>
             <div>
               <button className="px-2 py-1 bg-blue-500 rounded text-lg text-white w-full">
