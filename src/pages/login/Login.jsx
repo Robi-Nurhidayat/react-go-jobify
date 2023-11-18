@@ -19,20 +19,16 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        "http://localhost:8080/api/v1/user/login",
-        {
-          email: values.email,
-          password: values.password,
-        }
-      );
+      const response = await axios.post("/api/v1/user/login", {
+        email: values.email,
+        password: values.password,
+      });
 
-      console.log(response);
       Cookies.set("token", response.data.data.token);
       setData(response.data.data);
       toast.success(response.data.Meta.message);
     } catch (error) {
-      toast.error("erffe");
+      toast.error(error.response.data.Meta.message);
     }
   };
 
@@ -57,6 +53,7 @@ const Login = () => {
                 placeholder="Enter your email"
                 className="input input-bordered input-sm w-full max-w-lg"
                 id="email"
+                required
                 value={values.email}
                 onChange={(e) =>
                   setValues({ ...values, email: e.target.value })
@@ -73,6 +70,7 @@ const Login = () => {
                 placeholder="Enter your password"
                 className="input input-bordered input-sm w-full max-w-lg "
                 id="password"
+                required
                 value={values.password}
                 onChange={(e) =>
                   setValues({ ...values, password: e.target.value })

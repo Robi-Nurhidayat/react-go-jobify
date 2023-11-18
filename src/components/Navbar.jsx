@@ -2,7 +2,7 @@ import { HiMenu } from "react-icons/hi";
 import { FaUser } from "react-icons/fa";
 import { useState } from "react";
 import { BiSolidDownArrow, BiSolidLeftArrow } from "react-icons/bi";
-const Navbar = ({ openSidebar, setOpenSidebar }) => {
+const Navbar = ({ openSidebar, setOpenSidebar, currentUser }) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -22,7 +22,9 @@ const Navbar = ({ openSidebar, setOpenSidebar }) => {
           onClick={() => setOpen(!open)}
         >
           <FaUser />
-          <span className="text-lg font-medium">Robi</span>
+          <span className="text-lg font-medium capitalize">
+            {currentUser.name}
+          </span>
           {open ? <BiSolidDownArrow /> : <BiSolidLeftArrow />}
         </div>
         {open ? (
