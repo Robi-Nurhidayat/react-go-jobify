@@ -28,7 +28,7 @@ const Navbar = ({ openSidebar, setOpenSidebar, currentUser }) => {
           {open ? <BiSolidDownArrow /> : <BiSolidLeftArrow />}
         </div>
         {open ? (
-          <div className="bg-red-500 cursor-pointer px-2 py-2 absolute w-full rounded -bottom-[50px] flex items-end justify-center text-white font-medium text-lg">
+          <div className="z-50 bg-red-500 cursor-pointer px-2 py-2 absolute w-full rounded -bottom-[50px] flex items-end justify-center text-white font-medium text-lg">
             Logout
           </div>
         ) : null}

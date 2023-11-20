@@ -7,6 +7,7 @@ import Landing from "./pages/landing/Landing";
 import Dashboard from "./pages/dashboard/Dashboard";
 import AddJob from "./components/job/AddJob";
 import EditJob from "./components/job/EditJob";
+import AllJob from "./components/job/AllJob";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -27,11 +28,15 @@ const App = () => {
       element: <Dashboard />,
       children: [
         {
+          path: "all-job",
+          element: <AllJob />,
+        },
+        {
           path: "add-job",
           element: <AddJob />,
         },
         {
-          path: "edit-job",
+          path: "edit-job/:id",
           element: <EditJob />,
         },
       ],
