@@ -10,7 +10,7 @@ const AllJob = () => {
 
   const token = Cookies.get("token");
   const getAllJobs = async () => {
-    const response = await axios.get("http://localhost:8080/api/v1/jobs", {
+    const response = await axios.get("/api/v1/jobs", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -27,7 +27,7 @@ const AllJob = () => {
     <div className="grid gap-y-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ">
       {jobs.map((job) => {
         return (
-          <div className="card w-96 bg-base-100 shadow-xl">
+          <div key={job.id} className="card w-96 bg-base-100 shadow-xl">
             <div className="card-body">
               <div className="flex items-center gap-x-5 border-b p-1">
                 <div className="bg-blue-500 px-5 py-3 rounded text-xl text-white font-semibold">
