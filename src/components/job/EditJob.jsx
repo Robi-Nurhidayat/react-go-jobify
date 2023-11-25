@@ -6,7 +6,7 @@ const EditJob = () => {
   const { id } = useParams();
   const token = Cookies.get("token");
   const navigate = useNavigate();
-  console.log(id);
+  console.log(typeof id);
 
   const [values, setValues] = useState({
     company: "",
@@ -48,7 +48,6 @@ const EditJob = () => {
       const response = await axios.put(
         `/api/v1/jobs/${id}`,
         {
-          id: id,
           company: values.company,
           position: values.position,
           status: values.status,
@@ -58,6 +57,7 @@ const EditJob = () => {
         {
           headers: {
             Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
           },
         }
       );
@@ -66,6 +66,8 @@ const EditJob = () => {
     } catch (error) {
       console.log(error);
     }
+
+    console.log(values);
   };
   return (
     <div className="bg-white w-full h-full rounded">

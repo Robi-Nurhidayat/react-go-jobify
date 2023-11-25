@@ -2,7 +2,9 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 const AddJob = () => {
+  const navigate = useNavigate();
   const [values, setValues] = useState({
     company: "",
     position: "",
@@ -18,7 +20,7 @@ const AddJob = () => {
 
     const token = Cookies.get("token");
     try {
-      await axios.post(
+      const response = await axios.post(
         "/api/v1/job",
         {
           company: values.company,
@@ -34,6 +36,9 @@ const AddJob = () => {
         }
       );
       toast.success(response.data.Meta.message);
+      setTimeout(() => {
+        navigate("/dashboard/all-job");
+      }, 1500);
     } catch (error) {
       toast.error(error.response.data.Meta.message);
     }
