@@ -5,11 +5,11 @@ import { FaLocationArrow } from "react-icons/fa6";
 import { FaCalendarAlt } from "react-icons/fa";
 import { MdWork } from "react-icons/md";
 
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 const AllJob = () => {
-  const navigate = useNavigate();
   const [jobs, setJobs] = useState([]);
-
+  const [isDelete, setIsDelete] = useState(false);
+  const [popup, setPopup] = useState(false);
   const token = Cookies.get("token");
   const getAllJobs = async () => {
     const response = await axios.get("/api/v1/jobs", {
@@ -27,26 +27,50 @@ const AllJob = () => {
   }, []);
 
   const deleteJob = async (id) => {
-    const response = await axios.delete(`/api/v1/jobs/${id}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    setPopup(true);
+    if (isDelete) {
+      const response = await axios.delete(`/api/v1/jobs/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-    console.log(response.data.Meta.code);
+      console.log(response.data.Meta.code);
 
-    // navigate("/dashboard/all-job");
-    // if (response.data.Meta.code === 200) {
-    //   return navigate("/dashboard/all-job");
-    // }
+      if (response.data.Meta.code === 200) {
+        await getAllJobs();
+      }
+
+      setIsDelete(false);
+      return;
+    }
   };
 
   return (
     <div className="grid gap-y-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ">
       {jobs.map((job) => {
         return (
-          <div key={job.id} className="card w-96 bg-base-100 shadow-xl">
-            <div className="card-body">
+          <div
+            key={job.id}
+            className="card w-96 bg-base-100 shadow-xl overflow-hidden"
+          >
+            <div className="card-body relative">
+              {popup ? (
+                <div className="absolute flex flex-col top-0 bottom-0 left-0 right-0 bg-slate-400 h-full  justify-center items-center">
+                  <h5>Yakin data dihapus ?</h5>
+                  <div className="flex gap-x-4">
+                    <button
+                      onClick={() => setPopup(false)}
+                      className="px-2 py-1 hover:bg-blue-500 hover:text-white rounded font-semibold"
+                    >
+                      tidak
+                    </button>
+                    <button className="px-4 py-1 hover:bg-red-500 hover:text-white rounded font-semibold">
+                      iya
+                    </button>
+                  </div>
+                </div>
+              ) : null}
               <div className="flex items-center gap-x-5 border-b p-1">
                 <div className="bg-blue-500 px-5 py-3 rounded text-xl text-white font-semibold">
                   {job.company[0]}
