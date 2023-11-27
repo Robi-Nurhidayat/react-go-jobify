@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { toast } from "react-toastify";
 const EditJob = () => {
   const { id } = useParams();
   const token = Cookies.get("token");
@@ -63,6 +64,11 @@ const EditJob = () => {
       );
 
       console.log(response);
+
+      if (response.statusText === "OK") {
+        toast.success("Successfully updated");
+        navigate("/dashboard/all-job");
+      }
     } catch (error) {
       console.log(error);
     }

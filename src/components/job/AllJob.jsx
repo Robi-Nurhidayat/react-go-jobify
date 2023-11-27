@@ -24,7 +24,7 @@ const AllJob = () => {
 
   useEffect(() => {
     getAllJobs();
-  }, [jobs]);
+  }, []);
 
   const deleteJob = async (id) => {
     const response = await axios.delete(`/api/v1/jobs/${id}`, {
